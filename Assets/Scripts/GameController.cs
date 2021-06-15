@@ -13,6 +13,8 @@ public class GenerateBuildings : MonoBehaviour
     public int MapSizeX = 7;
     public int MapSizeY = 5;
 
+    public int freePlacement = 2;
+
     float scrollSensitivity = 1.12f;
 
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class GenerateBuildings : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            //check if the click is on grid
             //streets:
             if (((gridPos.x - 0) % 6 == 0) && ((gridPos.y - 2) % 4 == 0))
             {
@@ -55,19 +58,19 @@ public class GenerateBuildings : MonoBehaviour
             //settlements:
             else if (((gridPos.x - 1) % 6 == 0) && ((gridPos.y - 2) % 4 == 0))
             {
-                Map.SetTile(gridPos, SettlementTile);
+                TryPlaceSettlement(gridPos, SettlementTile);
             }
             else if (((gridPos.x + 1) % 6 == 0) && ((gridPos.y - 2) % 4 == 0))
             {
-                Map.SetTile(gridPos, SettlementTile);
+                TryPlaceSettlement(gridPos, SettlementTile);
             }
             else if (((gridPos.x - 2) % 6 == 0) && (gridPos.y % 4 == 0))
             {
-                Map.SetTile(gridPos, SettlementTile);
+                TryPlaceSettlement(gridPos, SettlementTile);
             }
             else if (((gridPos.x - 4) % 6 == 0) && (gridPos.y % 4 == 0))
             {
-                Map.SetTile(gridPos, SettlementTile);
+                TryPlaceSettlement(gridPos, SettlementTile);
             }
 
             Debug.Log("created " + Map.GetTile(gridPos).ToString() + " at " + gridPos);
@@ -99,6 +102,7 @@ public class GenerateBuildings : MonoBehaviour
 
     void TryPlaceStreet(Vector3Int pos, Tile Street)
     {
+        //check if ohter streets are adjacent
         if (pos.y % 2 == 0 && (
             //rechts oben
             Map.GetTile(new Vector3Int(pos.x + 1, pos.y + 1, 0)) != null ||
@@ -122,5 +126,17 @@ public class GenerateBuildings : MonoBehaviour
         {
             Map.SetTile(pos, Street);
         }
+        //check if buildings are adjacent ...
+    }
+
+    void TryPlaceSettlement(Vector3Int pos, Tile Settlement)
+    {
+        //check if Settlement is allowed to be placed ...
+        if (freePlacement > 0)
+        {
+            Map.SetTile(pos, Settlement);
+            freePlacement--;
+        }
+        //check if Streets are adjacent ...
     }
 }
