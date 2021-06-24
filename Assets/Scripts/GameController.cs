@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
-public class GenerateBuildings : MonoBehaviour
+public class GameController : MonoBehaviour
 {
-    public Grid Grid;
-    public Tilemap Map;
+    public Grid BuildingsStreetsGrid;
+    public Tilemap BuildingsStreetsMap;
     public Tile[] StreetTile;
     public Tile SettlementTile;
     public Tile CityTile;
@@ -15,11 +16,18 @@ public class GenerateBuildings : MonoBehaviour
 
     public int freePlacement = 2;
 
+    public bool EnablePlacement = true;
+    public bool EnableDeletion = false;
+    public bool EnableZoom = true;
+
     float scrollSensitivity = 1.12f;
+    TMP_Text Text;
 
     // Start is called before the first frame update
     void Start()
     {
+        Text = GameObject.FindGameObjectWithTag("UI Text").GetComponent<TMP_Text>();
+        Text.text = "Free Placement: " + freePlacement; 
     }
 
     //Update is called once per frame
@@ -27,7 +35,7 @@ public class GenerateBuildings : MonoBehaviour
     {
         Vector3Int gridPos = GetMousePosition();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && EnablePlacement)
         {
             //check if the click is on grid
             //streets:
@@ -72,23 +80,28 @@ public class GenerateBuildings : MonoBehaviour
             {
                 TryPlaceSettlement(gridPos, SettlementTile);
             }
-
-            Debug.Log("created " + Map.GetTile(gridPos).ToString() + " at " + gridPos);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && EnableDeletion)
         {
-            Debug.Log("destroyed " + Map.GetTile(gridPos).ToString());
-            Map.SetTile(gridPos, null);
+            try
+            {
+                Debug.Log("destroyed " + BuildingsStreetsMap.GetTile(gridPos).ToString());
+                BuildingsStreetsMap.SetTile(gridPos, null);
+            }
+            catch { }
         }
 
-        if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize >= 0.20f)
+        if (EnableZoom)
         {
-            Camera.main.orthographicSize /= scrollSensitivity;
-        }
-        else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize <= 25)
-        {
-            Camera.main.orthographicSize *= scrollSensitivity;
+            if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize >= 0.20f)
+            {
+                Camera.main.orthographicSize /= scrollSensitivity;
+            }
+            else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize <= 25)
+            {
+                Camera.main.orthographicSize *= scrollSensitivity;
+            }
         }
 
     }
@@ -97,7 +110,7 @@ public class GenerateBuildings : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
-        return Grid.WorldToCell(mouseWorldPos);
+        return BuildingsStreetsGrid.WorldToCell(mouseWorldPos);
     }
 
     void TryPlaceStreet(Vector3Int pos, Tile Street)
@@ -105,37 +118,44 @@ public class GenerateBuildings : MonoBehaviour
         //check if ohter streets are adjacent
         if (pos.y % 2 == 0 && (
             //rechts oben
-            Map.GetTile(new Vector3Int(pos.x + 1, pos.y + 1, 0)) != null ||
-            Map.GetTile(new Vector3Int(pos.x - 2, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 2, pos.y - 1, 0)) != null ||
             //rechts unten
-            Map.GetTile(new Vector3Int(pos.x + 1, pos.y - 1, 0)) != null ||
-            Map.GetTile(new Vector3Int(pos.x - 2, pos.y + 1, 0)) != null))
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 2, pos.y + 1, 0)) != null))
         {
-            Map.SetTile(pos, Street);
+            BuildingsStreetsMap.SetTile(pos, Street);
         }
         else if (pos.y % 2 != 0 && (
             //rechts oben
-            Map.GetTile(new Vector3Int(pos.x + 2, pos.y + 1, 0)) != null ||
-            Map.GetTile(new Vector3Int(pos.x - 1, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 2, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y - 1, 0)) != null ||
             //rechts unten
-            Map.GetTile(new Vector3Int(pos.x + 2, pos.y - 1, 0)) != null ||
-            Map.GetTile(new Vector3Int(pos.x - 1, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 2, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y + 1, 0)) != null ||
             //waagrecht
-            Map.GetTile(new Vector3Int(pos.x, pos.y + 2, 0)) != null ||
-            Map.GetTile(new Vector3Int(pos.x, pos.y - 2, 0)) != null))
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y + 2, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y - 2, 0)) != null))
         {
-            Map.SetTile(pos, Street);
+            BuildingsStreetsMap.SetTile(pos, Street);
         }
         //check if buildings are adjacent ...
     }
 
     void TryPlaceSettlement(Vector3Int pos, Tile Settlement)
     {
-        //check if Settlement is allowed to be placed ...
+        //check if Settlement is allowed to be placed ...(other settlemens to close)
         if (freePlacement > 0)
         {
-            Map.SetTile(pos, Settlement);
+            if (BuildingsStreetsMap.GetTile(pos).name == Settlement.name)
+            {
+                Debug.Log("I wont override a settlement");
+                return;
+            }
+            BuildingsStreetsMap.SetTile(pos, Settlement);
+            Debug.Log("created " + BuildingsStreetsMap.GetTile(pos).ToString() + " at " + pos);
             freePlacement--;
+            Text.text = "Free Placement: " + freePlacement;
         }
         //check if Streets are adjacent ...
     }

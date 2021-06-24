@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GenerateMap : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
     public Grid Grid;
-    public Tilemap Map;
+    public Tilemap TileMap;
     public Tile[] LandTile;
     public int MapSizeX = 7;
     public int MapSizeY = 5;
+    public bool EnableTileChanging = false;
 
     Vector3Int PrevMousePos;
 
@@ -37,18 +38,22 @@ public class GenerateMap : MonoBehaviour
     {
         Vector3Int mousePos = GetMousePosition();
 
-        if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && mousePos != PrevMousePos))
+        if ((Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && mousePos != PrevMousePos)) && EnableTileChanging)
         {
             PrevMousePos = mousePos;
-            Map.SetTile(mousePos, LandTile[(int)(Random.value * 6)]);
-            Debug.Log("created " + Map.GetTile(mousePos).ToString());
+            TileMap.SetTile(mousePos, LandTile[(int)(Random.value * 6)]);
+            Debug.Log("created " + TileMap.GetTile(mousePos).ToString());
         }
 
-        if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && mousePos != PrevMousePos))
+        if ((Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && mousePos != PrevMousePos)) && EnableTileChanging)
         {
-            PrevMousePos = mousePos;
-            Debug.Log("destroyed " + Map.GetTile(mousePos).ToString());
-            Map.SetTile(mousePos, null);
+            try
+            {
+                PrevMousePos = mousePos;
+                Debug.Log("destroyed " + TileMap.GetTile(mousePos).ToString());
+                TileMap.SetTile(mousePos, null);
+            }
+            catch { }
         }
 
     }
