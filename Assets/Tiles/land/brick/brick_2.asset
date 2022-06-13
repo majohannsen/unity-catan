@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535f8e525ff367c4ba67961e201a05ed, type: 3}
-  m_Name: sheep
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: brick_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a25ac464aa2d4d84fa53d2d46428345f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,8 +34,3 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  m_Sprites:
-  - {fileID: 21300000, guid: ad79e22fa61d0804cb666dd69d8ac962, type: 3}
-  - {fileID: 21300000, guid: 40112cf39ac3bce4eb4f8035b71bd994, type: 3}
-  - {fileID: 21300000, guid: 2930653323718f247a2cd4b4cd34c68f, type: 3}
-  - {fileID: 21300000, guid: 649c2b596d6c1d34f9475f6f74a52844, type: 3}

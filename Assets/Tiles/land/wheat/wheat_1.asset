@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535f8e525ff367c4ba67961e201a05ed, type: 3}
-  m_Name: ore
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: wheat_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a834279d2e1abc642a05f84ab3cebaf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,7 +34,3 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  m_Sprites:
-  - {fileID: 21300000, guid: fc64dc6f2a296bf44a5756ff15e992b6, type: 3}
-  - {fileID: 21300000, guid: 2bbf0ae3e27e2f7409bb5c62efc63453, type: 3}
-  - {fileID: 21300000, guid: fe4b3f1f4357348459298cd96845375b, type: 3}

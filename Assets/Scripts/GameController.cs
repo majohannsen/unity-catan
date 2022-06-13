@@ -21,13 +21,11 @@ public class GameController : MonoBehaviour
     public bool EnableZoom = true;
 
     float scrollSensitivity = 1.12f;
-    TMP_Text Text;
 
     // Start is called before the first frame update
     void Start()
     {
-        Text = GameObject.FindGameObjectWithTag("UI Text").GetComponent<TMP_Text>();
-        Text.text = "Free Placement: " + freePlacement; 
+        SettlementTile.color = new Color(1, 0, 0);
     }
 
     //Update is called once per frame
@@ -37,6 +35,7 @@ public class GameController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && EnablePlacement)
         {
+            Debug.Log(gridPos);
             //check if the click is on grid
             //streets:
             if (((gridPos.x - 0) % 6 == 0) && ((gridPos.y - 2) % 4 == 0))
@@ -115,18 +114,17 @@ public class GameController : MonoBehaviour
 
     void TryPlaceStreet(Vector3Int pos, Tile Street)
     {
-        //check if ohter streets are adjacent
-        if (pos.y % 2 == 0 && (
+        bool posFree = !Street.Equals(BuildingsStreetsMap.GetTile(pos));
+        bool streetsAdjacent =
+            (pos.y % 2 == 0 && (
             //rechts oben
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y + 1, 0)) != null ||
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 2, pos.y - 1, 0)) != null ||
             //rechts unten
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y - 1, 0)) != null ||
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 2, pos.y + 1, 0)) != null))
-        {
-            BuildingsStreetsMap.SetTile(pos, Street);
-        }
-        else if (pos.y % 2 != 0 && (
+            ||
+            (pos.y % 2 != 0 && (
             //rechts oben
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 2, pos.y + 1, 0)) != null ||
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y - 1, 0)) != null ||
@@ -135,28 +133,70 @@ public class GameController : MonoBehaviour
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y + 1, 0)) != null ||
             //waagrecht
             BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y + 2, 0)) != null ||
-            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y - 2, 0)) != null))
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y - 2, 0)) != null));
+        bool buildingsAdjacent =
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y - 1, 0)) != null;
+
+
+
+        if (posFree)
         {
-            BuildingsStreetsMap.SetTile(pos, Street);
+            if (streetsAdjacent || buildingsAdjacent)
+            {
+                BuildingsStreetsMap.SetTile(pos, Street);
+            }
         }
-        //check if buildings are adjacent ...
+        else
+        {
+            Debug.Log("Street already exists");
+        }
     }
 
     void TryPlaceSettlement(Vector3Int pos, Tile Settlement)
     {
-        //check if Settlement is allowed to be placed ...(other settlemens to close)
-        if (freePlacement > 0)
+        //check if other Settlement are to close ... not allowed
+        //free placement? ... allowed
+        //check if streets are adjacent ... allowed
+
+        bool posFree = !Settlement.Equals(BuildingsStreetsMap.GetTile(pos));
+        bool distanceOk =
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 2, pos.y, 0)) == null &&
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y + 2, 0)) == null &&
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y + 2, 0)) == null &&
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 2, pos.y, 0)) == null &&
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y - 2, 0)) == null &&
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y - 2, 0)) == null;
+        bool streetsAdjacent =
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x + 1, pos.y, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y + 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x - 1, pos.y - 1, 0)) != null ||
+            BuildingsStreetsMap.GetTile(new Vector3Int(pos.x, pos.y - 1, 0)) != null;
+
+        if (posFree && distanceOk)
         {
-            if (BuildingsStreetsMap.GetTile(pos).name == Settlement.name)
+            if (freePlacement > 0)
             {
-                Debug.Log("I wont override a settlement");
-                return;
+                BuildingsStreetsMap.SetTile(pos, Settlement);
+                Debug.Log("created " + BuildingsStreetsMap.GetTile(pos).ToString());
+                freePlacement--;
+                gameObject.GetComponent<UIManager>().updateText();
             }
-            BuildingsStreetsMap.SetTile(pos, Settlement);
-            Debug.Log("created " + BuildingsStreetsMap.GetTile(pos).ToString() + " at " + pos);
-            freePlacement--;
-            Text.text = "Free Placement: " + freePlacement;
+            else if (streetsAdjacent)
+            {
+                BuildingsStreetsMap.SetTile(pos, Settlement);
+                Debug.Log("created " + BuildingsStreetsMap.GetTile(pos).ToString());
+            }
         }
-        //check if Streets are adjacent ...
+        else
+        {
+            Debug.Log("Other settlements are to close");
+        }
     }
 }

@@ -8,15 +8,19 @@ public class MapGenerator : MonoBehaviour
     public Grid Grid;
     public Tilemap TileMap;
     public Tile[] LandTile;
+    public HexagonalRuleTile hexagonalRuleTile;
     public int MapSizeX = 7;
     public int MapSizeY = 5;
     public bool EnableTileChanging = false;
 
+    TileGenerator tileGenerator;
     Vector3Int PrevMousePos;
 
     // Start is called before the first frame update
     void Start()
     {
+        tileGenerator = GetComponent<TileGenerator>();
+
         PrevMousePos = GetMousePosition();
 
         //Vector3Int pos = new Vector3Int(-MapSizeX / 2, -MapSizeY / 2, 0);
@@ -41,7 +45,8 @@ public class MapGenerator : MonoBehaviour
         if ((Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && mousePos != PrevMousePos)) && EnableTileChanging)
         {
             PrevMousePos = mousePos;
-            TileMap.SetTile(mousePos, LandTile[(int)(Random.value * 6)]);
+            // TileMap.SetTile(mousePos, LandTile[(int)(Random.value * 6)]);
+            TileMap.SetTile(mousePos, tileGenerator.getLandTile());
             Debug.Log("created " + TileMap.GetTile(mousePos).ToString());
         }
 

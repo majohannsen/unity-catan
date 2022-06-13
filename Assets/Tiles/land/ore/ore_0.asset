@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535f8e525ff367c4ba67961e201a05ed, type: 3}
-  m_Name: wood
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: ore_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: fc64dc6f2a296bf44a5756ff15e992b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,8 +34,3 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  m_Sprites:
-  - {fileID: 21300000, guid: dde6ad11ca30bd345a4479181cddf434, type: 3}
-  - {fileID: 21300000, guid: 4f902f09adb2ab746ac9f3f52781e387, type: 3}
-  - {fileID: 21300000, guid: afc7820a2452d3547b73b73c3e2a44c2, type: 3}
-  - {fileID: 21300000, guid: b7e2df97271c5ef479431af92530bc3f, type: 3}
