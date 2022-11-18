@@ -14,7 +14,7 @@ public class TileGenerator : MonoBehaviour
 
     private Tile[][] landTiles;
 
-    private void Start()
+    private void Awake()
     {
         landTiles = new Tile[][] {
             brickTiles,
@@ -58,7 +58,8 @@ public class TileGenerator : MonoBehaviour
 
     public Tile getLandTile()
     {
-        int randomIndex = (int)(Random.value * landTiles.Length);
-        return landTiles[randomIndex][(int)(Random.value * landTiles[randomIndex].Length)];
+        int randomLandType = (int)(Random.value * landTiles.Length);
+        int randomSprite = (int)(Random.value * landTiles[randomLandType].Length);
+        return landTiles[randomLandType][randomSprite];
     }
 }
