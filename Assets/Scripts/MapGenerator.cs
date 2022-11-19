@@ -23,14 +23,49 @@ public class MapGenerator : MonoBehaviour
 
         PrevMousePos = GetMousePosition();
 
-        FillRectangleMap();
+        FillHexagonalMap(3);
+    }
 
-        // Vector3Int pos = new Vector3Int(3, 0, 0);
-        // for (int i = 0; i < 7; i++)
-        // {
-        //     TileMap.SetTile(pos, tileGenerator.getLandTile());
-        //     pos = LeftAdjacentPosition(pos);
-        // }
+    void FillHexagonalMap(int rounds)
+    {
+        Vector3Int pos = new Vector3Int(0, 0, 0);
+        TileMap.SetTile(pos, tileGenerator.getLandTile());
+
+        for (int i = 1; i <= rounds; i++)
+        {
+            pos = TopLeftAdjacentPosition(pos);
+
+            for (int j = 0; j < i; j++)
+            {
+                pos = RightAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+            for (int j = 0; j < i; j++)
+            {
+                pos = BottomRightAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+            for (int j = 0; j < i; j++)
+            {
+                pos = BottomLeftAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+            for (int j = 0; j < i; j++)
+            {
+                pos = LeftAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+            for (int j = 0; j < i; j++)
+            {
+                pos = TopLeftAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+            for (int j = 0; j < i; j++)
+            {
+                pos = TopRightAdjacentPosition(pos);
+                TileMap.SetTile(pos, tileGenerator.getLandTile());
+            }
+        }
     }
 
     void FillRectangleMap()
