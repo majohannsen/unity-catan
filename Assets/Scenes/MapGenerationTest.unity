@@ -704,7 +704,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a58f53ec9e962af4a972f94b8a9d66dc, type: 2}
   - {fileID: 11400000, guid: 5aa8e6455c4ab804bad0f0b21800092b, type: 2}
   - {fileID: 11400000, guid: 3fa19e1f4613c504a8f6b8d3903e8390, type: 2}
-  fief: fuuf
 --- !u!1 &668587325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,27 +1196,27 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: -2.5244127e-29
+      e00: 1.084227e-19
       e01: 0
-      e02: -1.6452916e+20
-      e03: -1.6452916e+20
-      e10: 1.013e-42
+      e02: -4.841544e+33
+      e03: -4.841544e+33
+      e10: 8.84e-43
       e11: 0
-      e12: 3.12e-43
-      e13: 3.12e-43
-      e20: -2.1869884e-10
-      e21: -1.7197151e+29
-      e22: 9.391181e-10
-      e23: -1.7197151e+29
+      e12: 2.38e-43
+      e13: 2.38e-43
+      e20: -1.6873316e+14
+      e21: 4.1305116e+19
+      e22: -4.187046
+      e23: 4.1305116e+19
       e30: 4.5905e-41
-      e31: 1.015e-42
-      e32: 1.013e-42
-      e33: 1.015e-42
+      e31: 8.86e-43
+      e32: 8.83e-43
+      e33: 8.86e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 4e-45, g: 4e-45, b: 4e-45, a: 4e-45}
   - m_RefCount: 0
-    m_Data: {r: -1.7197151e+29, g: -1.7197151e+29, b: -1.7197151e+29, a: -1.7197151e+29}
+    m_Data: {r: 4.1305116e+19, g: 4.1305116e+19, b: 4.1305116e+19, a: 4.1305116e+19}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
