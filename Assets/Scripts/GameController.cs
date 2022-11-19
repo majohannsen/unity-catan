@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public bool EnablePlacement = true;
     public bool EnableDeletion = false;
     public bool EnableZoom = true;
+    public float minZoom = 0.20f;
+    public float maxZoom = 25;
 
     float scrollSensitivity = 1.12f;
 
@@ -93,11 +95,11 @@ public class GameController : MonoBehaviour
 
         if (EnableZoom)
         {
-            if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize >= 0.20f)
+            if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize >= minZoom)
             {
                 Camera.main.orthographicSize /= scrollSensitivity;
             }
-            else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize <= 25)
+            else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize <= maxZoom)
             {
                 Camera.main.orthographicSize *= scrollSensitivity;
             }

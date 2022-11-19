@@ -23,7 +23,7 @@ public class MapGenerator : MonoBehaviour
 
         PrevMousePos = GetMousePosition();
 
-        FillHexagonalMap(3);
+        FillHexagonalMap(50);
     }
 
     void FillHexagonalMap(int rounds)
