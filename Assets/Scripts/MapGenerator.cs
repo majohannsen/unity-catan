@@ -7,8 +7,6 @@ public class MapGenerator : MonoBehaviour
 {
     public Grid Grid;
     public Tilemap TileMap;
-    public Tile[] LandTile;
-    public HexagonalRuleTile hexagonalRuleTile;
     public int MapSizeX = 7;
     public int MapSizeY = 5;
     public bool EnableTileChanging = false;
