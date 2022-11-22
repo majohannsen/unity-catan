@@ -16,8 +16,8 @@ public struct CatanTileData
 
 public class MapManager : MonoBehaviour
 {
-
     public Tilemap TileMap;
+
     private Dictionary<Vector3Int, CatanTileData> tileDatas;
 
     public void SetTile(Vector3Int pos, Tile tile) {

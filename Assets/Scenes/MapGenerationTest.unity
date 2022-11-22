@@ -589,6 +589,7 @@ GameObject:
   - component: {fileID: 602792200}
   - component: {fileID: 602792199}
   - component: {fileID: 602792203}
+  - component: {fileID: 602792204}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -648,11 +649,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060c1e7cf674ca94a83c621cd8107c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grid: {fileID: 333726115}
   TileMap: {fileID: 1924289277}
   MapSizeX: 7
   MapSizeY: 5
-  EnableTileChanging: 1
 --- !u!4 &602792202
 Transform:
   m_ObjectHideFlags: 0
@@ -679,31 +678,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad455d49796d68e46aba147c2a757782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickTiles:
-  - {fileID: 11400000, guid: dc873bd500d7ca949b4bdc264737e3f2, type: 2}
-  - {fileID: 11400000, guid: 924d07da9b055cb4aaf774ea464da607, type: 2}
-  - {fileID: 11400000, guid: e7e50b54b72560044b4531f69599a7b4, type: 2}
-  desertTiles:
-  - {fileID: 11400000, guid: d64040e24189f4847ab2abb9d7ecabb9, type: 2}
-  oreTiles:
-  - {fileID: 11400000, guid: 7be25f20e09506f479f4bf17f5a7dd81, type: 2}
-  - {fileID: 11400000, guid: b1dd4d529018ba740b907ced248b8a29, type: 2}
-  - {fileID: 11400000, guid: cbe8426ce8262264ea59b0321c989133, type: 2}
-  sheepTiles:
-  - {fileID: 11400000, guid: 68a078cb3be76ba4a8291033cf211173, type: 2}
-  - {fileID: 11400000, guid: 8ce29fc7c6343234db2ff8d531fd230d, type: 2}
-  - {fileID: 11400000, guid: df388917c77c23442ac0871034c4c179, type: 2}
-  - {fileID: 11400000, guid: 532763aa7c7e7314b897a51b0911ac22, type: 2}
-  wheatTiles:
-  - {fileID: 11400000, guid: 3e9d41f6f2905ac48a2f0bf33256a0da, type: 2}
-  - {fileID: 11400000, guid: 78b26d0c8d9d1984b8ca6e7420d49952, type: 2}
-  - {fileID: 11400000, guid: 34f511e8728501e4689db047acafc504, type: 2}
-  - {fileID: 11400000, guid: 7b95b63ebf2ac1541be12e4f5bda330f, type: 2}
-  woodTiles:
-  - {fileID: 11400000, guid: 93af54d316b18e74fbd675522e0ec813, type: 2}
-  - {fileID: 11400000, guid: a58f53ec9e962af4a972f94b8a9d66dc, type: 2}
-  - {fileID: 11400000, guid: 5aa8e6455c4ab804bad0f0b21800092b, type: 2}
-  - {fileID: 11400000, guid: 3fa19e1f4613c504a8f6b8d3903e8390, type: 2}
+  ressourceTiles:
+  - {fileID: 11400000, guid: 68383a4149606f045bd9c4c643ac34bf, type: 2}
+  - {fileID: 11400000, guid: 684ea774617098d46aa5ef6fd2fe9c99, type: 2}
+  - {fileID: 11400000, guid: bd5dd15e022c18c49b14b20067b7a68a, type: 2}
+  - {fileID: 11400000, guid: a7474e551eb4257429066f1ad8cb3c55, type: 2}
+  - {fileID: 11400000, guid: 5e845e158c6539542b9b500134ce9af4, type: 2}
+  desertTile: {fileID: 11400000, guid: ae94f8dd25c4dbc4e86f716d79e25c58, type: 2}
+  waterTile: {fileID: 11400000, guid: 690a8a024f73fbc4e9538786e670ed56, type: 2}
+--- !u!114 &602792204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602792198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b1013e4dfa29d4b8ff6415abf2dcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grid: {fileID: 333726115}
+  TileMap: {fileID: 1924289277}
+  EnableTileChanging: 1
 --- !u!1 &668587325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,7 +3196,7 @@ Tilemap:
       e13: 3.28e-43
       e20: 381874
       e21: 1.7747394e+29
-      e22: -9.373418e-10
+      e22: -9.2968344e-10
       e23: 1.7747394e+29
       e30: 4.5904e-41
       e31: 7.1e-43
