@@ -22,11 +22,15 @@ public class GameController : MonoBehaviour
     public float minZoom = 0.20f;
     public float maxZoom = 25;
 
-    float scrollSensitivity = 1.12f;
+    private float scrollSensitivity = 1.12f;
+    private MapGenerator mapGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
+        mapGenerator = GetComponent<MapGenerator>();
+        mapGenerator.FillHexagonalMap(3);
+        
         SettlementTile.color = new Color(1, 0, 0);
     }
 

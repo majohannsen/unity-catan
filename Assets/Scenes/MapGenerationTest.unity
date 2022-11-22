@@ -634,6 +634,8 @@ MonoBehaviour:
   EnablePlacement: 0
   EnableDeletion: 0
   EnableZoom: 1
+  minZoom: 0.2
+  maxZoom: 25
 --- !u!114 &602792201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,9 +650,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Grid: {fileID: 333726115}
   TileMap: {fileID: 1924289277}
-  LandTile:
-  - {fileID: 0}
-  hexagonalRuleTile: {fileID: 0}
   MapSizeX: 7
   MapSizeY: 5
   EnableTileChanging: 1
@@ -3190,27 +3189,27 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: 1.084227e-19
+      e00: 2.5244127e-29
       e01: 0
-      e02: -4.8415488e+33
-      e03: -4.8415488e+33
-      e10: 8.84e-43
+      e02: -1.1040553e+28
+      e03: -1.1040553e+28
+      e10: 7.09e-43
       e11: 0
-      e12: 2.38e-43
-      e13: 2.38e-43
-      e20: -1.6873316e+14
-      e21: 4.1321652e+19
-      e22: -4.0564156
-      e23: 4.1321652e+19
-      e30: 4.5905e-41
-      e31: 8.86e-43
-      e32: 8.83e-43
-      e33: 8.86e-43
+      e12: 3.28e-43
+      e13: 3.28e-43
+      e20: 381874
+      e21: 1.7747394e+29
+      e22: -9.373418e-10
+      e23: 1.7747394e+29
+      e30: 4.5904e-41
+      e31: 7.1e-43
+      e32: 7.08e-43
+      e33: 7.1e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 4e-45, g: 4e-45, b: 4e-45, a: 4e-45}
   - m_RefCount: 0
-    m_Data: {r: 4.1321652e+19, g: 4.1321652e+19, b: 4.1321652e+19, a: 4.1321652e+19}
+    m_Data: {r: 1.7747394e+29, g: 1.7747394e+29, b: 1.7747394e+29, a: 1.7747394e+29}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

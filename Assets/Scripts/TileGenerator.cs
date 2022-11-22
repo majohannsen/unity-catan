@@ -5,61 +5,20 @@ using UnityEngine.Tilemaps;
 
 public class TileGenerator : MonoBehaviour
 {
-    public Tile[] brickTiles;
-    public Tile[] desertTiles;
-    public Tile[] oreTiles;
-    public Tile[] sheepTiles;
-    public Tile[] wheatTiles;
-    public Tile[] woodTiles;
-
-    private Tile[][] landTiles;
-
-    private void Awake()
+    public CatanTile[] ressourceTiles;
+    public CatanTile desertTile;
+    public CatanTile waterTile;
+    
+    public Tile getRandomRessource()
     {
-        landTiles = new Tile[][] {
-            brickTiles,
-            desertTiles,
-            oreTiles,
-            sheepTiles,
-            wheatTiles,
-            woodTiles
-        };
+        return ressourceTiles[(int)(Random.value * ressourceTiles.Length)];
     }
 
-    public Tile getBrickTile()
-    {
-        return brickTiles[(int)(Random.value * brickTiles.Length)];
+    public Tile getDesert() {
+        return desertTile;
     }
 
-    public Tile getDesertTile()
-    {
-        return desertTiles[(int)(Random.value * desertTiles.Length)];
-    }
-
-    public Tile getOreTile()
-    {
-        return oreTiles[(int)(Random.value * oreTiles.Length)];
-    }
-
-    public Tile getSheepTile()
-    {
-        return sheepTiles[(int)(Random.value * sheepTiles.Length)];
-    }
-
-    public Tile getWheatTile()
-    {
-        return wheatTiles[(int)(Random.value * wheatTiles.Length)];
-    }
-
-    public Tile getWoodTile()
-    {
-        return woodTiles[(int)(Random.value * woodTiles.Length)];
-    }
-
-    public Tile getLandTile()
-    {
-        int randomLandType = (int)(Random.value * landTiles.Length);
-        int randomSprite = (int)(Random.value * landTiles[randomLandType].Length);
-        return landTiles[randomLandType][randomSprite];
+    public Tile getWater() {
+        return waterTile;
     }
 }

@@ -14,20 +14,20 @@ public class MapGenerator : MonoBehaviour
     TileGenerator tileGenerator;
     Vector3Int PrevMousePos;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         tileGenerator = GetComponent<TileGenerator>();
-
-        PrevMousePos = GetMousePosition();
-
-        FillHexagonalMap(50);
     }
 
-    void FillHexagonalMap(int rounds)
+    void Start()
+    {
+        PrevMousePos = GetMousePosition();
+    }
+
+    public void FillHexagonalMap(int rounds)
     {
         Vector3Int pos = new Vector3Int(0, 0, 0);
-        TileMap.SetTile(pos, tileGenerator.getLandTile());
+        TileMap.SetTile(pos, tileGenerator.getRandomRessource());
 
         for (int i = 1; i <= rounds; i++)
         {
@@ -36,44 +36,44 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < i; j++)
             {
                 pos = RightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = BottomRightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = BottomLeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = LeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = TopLeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = TopRightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
             }
         }
     }
 
-    void FillRectangleMap()
+    public void FillRectangleMap()
     {
         Vector3Int pos = new Vector3Int(-MapSizeX / 2, -MapSizeY / 2, 0);
         for (int i = 0; i < MapSizeX; i++)
         {
             for (int j = 0; j < MapSizeY; j++)
             {
-                TileMap.SetTile(pos, tileGenerator.getLandTile());
+                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
                 pos.y++;
             }
             pos.y = -MapSizeY / 2;
@@ -136,7 +136,7 @@ public class MapGenerator : MonoBehaviour
         if ((Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && mousePos != PrevMousePos)) && EnableTileChanging)
         {
             PrevMousePos = mousePos;
-            TileMap.SetTile(mousePos, tileGenerator.getLandTile());
+            TileMap.SetTile(mousePos, tileGenerator.getRandomRessource());
             Debug.Log("created " + TileMap.GetTile(mousePos).ToString());
         }
 
