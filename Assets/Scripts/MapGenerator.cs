@@ -10,16 +10,18 @@ public class MapGenerator : MonoBehaviour
     public int MapSizeY = 5;
 
     TileGenerator tileGenerator;
+    MapManager mapManager;
 
     private void Awake()
     {
         tileGenerator = GetComponent<TileGenerator>();
+        mapManager = GetComponent<MapManager>();
     }
 
     public void FillHexagonalMap(int rounds)
     {
         Vector3Int pos = new Vector3Int(0, 0, 0);
-        TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+        mapManager.SetTile(pos, tileGenerator.getRandomRessource());
 
         for (int i = 1; i <= rounds; i++)
         {
@@ -28,32 +30,32 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < i; j++)
             {
                 pos = RightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = BottomRightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = BottomLeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = LeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = TopLeftAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
             for (int j = 0; j < i; j++)
             {
                 pos = TopRightAdjacentPosition(pos);
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
             }
         }
     }
@@ -65,7 +67,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = 0; j < MapSizeY; j++)
             {
-                TileMap.SetTile(pos, tileGenerator.getRandomRessource());
+                mapManager.SetTile(pos, tileGenerator.getRandomRessource());
                 pos.y++;
             }
             pos.y = -MapSizeY / 2;

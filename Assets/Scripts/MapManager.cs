@@ -16,20 +16,13 @@ public struct CatanTileData
 
 public class MapManager : MonoBehaviour
 {
-    public Tilemap TileMap;
+    public Tilemap tileMap;
 
-    private Dictionary<Vector3Int, CatanTileData> tileDatas;
+    private Dictionary<Vector3Int, CatanTileData> tileDatas = new Dictionary<Vector3Int, CatanTileData>();
 
-    public void SetTile(Vector3Int pos, Tile tile) {
-
-    }
-
-    public void SetTile(Vector3Int pos, Tile tile, int numberChip, bool revealed) {
-
-    }
-
-    public void EditTile(Vector3Int pos, int numberChip, bool revealed) {
-
+    public void SetTile(Vector3Int pos, CatanTile tile) {
+        tileMap.SetTile(pos, tile);
+        tileDatas.Add(pos, new CatanTileData(-1, true));
     }
 
     public void revealTile(Vector3Int pos) {

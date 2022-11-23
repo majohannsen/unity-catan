@@ -25,12 +25,16 @@ public class GameController : MonoBehaviour
     private float scrollSensitivity = 1.12f;
     private MapGenerator mapGenerator;
 
+    private void Awake()
+    {
+        mapGenerator = GetComponent<MapGenerator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        mapGenerator = GetComponent<MapGenerator>();
         mapGenerator.FillHexagonalMap(3);
-        
+
         SettlementTile.color = new Color(1, 0, 0);
     }
 

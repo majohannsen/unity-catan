@@ -9,16 +9,16 @@ public class TileGenerator : MonoBehaviour
     public CatanTile desertTile;
     public CatanTile waterTile;
     
-    public Tile getRandomRessource()
+    public CatanTile getRandomRessource()
     {
         return ressourceTiles[(int)(Random.value * ressourceTiles.Length)];
     }
 
-    public Tile getDesert() {
+    public CatanTile getDesert() {
         return desertTile;
     }
 
-    public Tile getWater() {
+    public CatanTile getWater() {
         return waterTile;
     }
 }
